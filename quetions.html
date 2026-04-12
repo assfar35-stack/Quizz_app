@@ -13,6 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
       @theme {
+        /* Font */
+        --font-rubik: "Rubik", sans-serif;
+
         /* Base Colors */
         --color-white: #ffffff;
         --color-black: #000000;
@@ -46,100 +49,88 @@
         --color-red-500: #ee5454;
 
         /* TYPOGHRAPHY  */
+        /* Desktop Type Scale */
+        --text-h1: 144px;
+        --text-h1-line-height: 144px;
+        --text-h1-font-weight: 500;
 
-        /* Text Preset 1 */
-        --text-preset-1: 144px;
-        --text-preset-1--line-height: 100%;
-        --text-preset-1--letter-spacing: 0px;
-        /* Text Preset 1 Mobile */
-        --text-preset-1-mobile: 88px;
-        --text-preset-1-mobile--line-height: 100%;
-        --text-preset-1-mobile--letter-spacing: 0px;
+        --text-h2: 64px;
+        --text-h2-line-height: 64px;
+        --text-h2-font-weight: 500;
 
-        /* Text Preset 2 medium */
-        --text-preset-2-medium: 64px;
-        --text-preset-2-medium--line-height: 100%;
-        --text-preset-2-medium--font-weight: 500;
-        --text-preset-2-medium--letter-spacing: 0px;
+        --text-h2-light: 64px;
+        --text-h2-light-line-height: 64px;
+        --text-h2-light-font-weight: 300;
 
-        /* Text Preset 2 mobile medium */
-        --text-preset-2-mobile-medium: 40px;
-        --text-preset-2-mobile-medium--line-height: 100%;
-        --text-preset-2-mobile-medium--font-weight: 500;
-        --text-preset-2-mobile-medium--letter-spacing: 0px;
+        --text-h3: 36px;
+        --text-h3-line-height: 43px;
+        --text-h3-font-weight: 500;
 
-        /* Text Preset 2 light */
-        --text-preset-2-light: 64px;
-        --text-preset-2-light--line-height: 100%;
-        --text-preset-2-light--font-weight: 300;
-        --text-preset-2-light--letter-spacing: 0px;
+        --text-h4: 28px;
+        --text-h4-line-height: 28px;
+        --text-h4-font-weight: 500;
 
-        /* Text Preset 2 mobile light */
-        --text-preset-2-mobile-light: 40px;
-        --text-preset-2-mobile-light--line-height: 100%;
-        --text-preset-2-mobile-light--font-weight: 300;
-        --text-preset-2-mobile-light--letter-spacing: 0px;
+        --text-h5: 24px;
+        --text-h5-line-height: 36px;
+        --text-h5-font-weight: 500;
 
-        /*text preset 3 medium */
-        --text-preset-3: 36px;
-        --text-preset-3--font-weight: 500;
-        --text-preset-3--line-height: 120%;
-        --text-preset-3--letter-spacing: 0px;
+        --text-h5-regular: 24px;
+        --text-h5-regular-line-height: 36px;
+        --text-h5-regular-font-weight: 400;
 
-        /* Text Preset 3 Mobile medium */
-        --text-preset-3-mobile: 20px;
-        --text-preset-3-mobile--font-weight: 500;
-        --text-preset-3-mobile--line-height: 120%;
-        --text-preset-3-mobile--letter-spacing: 0px;
+        --text-h6: 20px;
+        --text-h6-line-height: 30px;
+        --text-h6-font-weight: 400;
 
-        /*text preset 4 medium */
-        --text-preset-4: 28px;
-        --text-preset-4--font-weight: 500;
-        --text-preset-4--line-height: 100%;
-        --text-preset-4--letter-spacing: 0px;
-        /* Text Preset 4 Mobile medium */
-        --text-preset-4-mobile: 18px;
-        --text-preset-4-mobile--font-weight: 500;
-        --text-preset-4-mobile--line-height: 100%;
-        --text-preset-4-mobile--letter-spacing: 0px;
+        /* Mobile Type Scale */
+        --text-h1-mobile: 88px;
+        --text-h1-mobile-line-height: 88px;
+        --text-h1-mobile-font-weight: 500;
 
-        /* Text Preset 5 medium */
-        --text-preset-5: 24px;
-        --text-preset-5--font-weight: 500;
-        --text-preset-5--line-height: 150%;
-        --text-preset-5--letter-spacing: 0px;
-        /* Text Preset 5 Mobile italic  */
-        --text-preset-5-mobile: 14px;
-        --text-preset-5-mobile--font-style: italic;
-        --text-preset-5-mobile--line-height: 150%;
-        --text-preset-5-mobile--letter-spacing: 0px;
-        /*Text preset 5 Regular*/
-        --text-preset-5-regular: 24px;
-        --text-preset-5-regular--font-weight: 400;
-        --text-preset-5-regular--line-height: 150%;
-        --text-preset-5-regular--letter-spacing: 0px;
+        --text-h2-mobile: 40px;
+        --text-h2-mobile-line-height: 40px;
+        --text-h2-mobile-font-weight: 500;
 
-        /* Text Preset 6 italic */
-        --text-preset-6: 20px;
-        --text-preset-6--font-style: italic;
-        --text-preset-6--line-height: 150%;
-        --text-preset-6--letter-spacing: 0px;
+        --text-h2-mobile-light: 40px;
+        --text-h2-mobile-light-line-height: 40px;
+        --text-h2-mobile-light-font-weight: 300;
 
-        /* SPACING */
-        --spacing-100: 8px;
-        --spacing-200: 16px;
-        --spacing-300: 24px;
-        --spacing-400: 32px;
-        --spacing-500: 40px;
-        --spacing-600: 48px;
-        --spacing-800: 64px;
-        --spacing-1600: 128px;
-        --spacing-1800: 144px;
-        --spacing-2300: 184px;
+        --text-h3-mobile: 20px;
+        --text-h3-mobile-line-height: 24px;
+        --text-h3-mobile-font-weight: 500;
+
+        --text-h4-mobile: 18px;
+        --text-h4-mobile-line-height: 18px;
+        --text-h4-mobile-font-weight: 500;
+
+        --text-h5-mobile: 14px;
+        --text-h5-mobile-line-height: 21px;
+        --text-h5-mobile-font-weight: 400;
+
+        /* Tablet Type Scale */
+        --text-h2-tablet: 48px;
+        --text-h2-tablet-line-height: 48px;
+        --text-h2-tablet-font-weight: 500;
+
+        --text-h2-tablet-light: 48px;
+        --text-h2-tablet-light-line-height: 48px;
+        --text-h2-tablet-light-font-weight: 300;
+
+        --text-h3-tablet: 28px;
+        --text-h3-tablet-line-height: 34px;
+        --text-h3-tablet-font-weight: 500;
+
+        --text-h4-tablet: 24px;
+        --text-h4-tablet-line-height: 24px;
+        --text-h4-tablet-font-weight: 500;
+
+        --text-h6-tablet: 18px;
+        --text-h6-tablet-line-height: 27px;
+        --text-h6-tablet-font-weight: 400;
       }
     </style>
   </head>
-  <body class="bg-blue-900 min-h-screen relative">
+  <body class="bg-blue-900 min-h-screen relative font-rubik text-white">
     <img
       src="/assets/icons/bgleft.svg"
       alt=""
@@ -156,7 +147,9 @@
     >
       <div class="flex items-center gap-2">
         <div class=""><img src="/assets/icons/iconaccses.svg" alt="" /></div>
-        <span class="text-preset-4">Accessibility</span>
+        <span class="text-h4-mobile md:text-h3-tablet lg:text-h4"
+          >Accessibility</span
+        >
       </div>
       <div class="flex items-center gap-4">
         <svg
@@ -210,14 +203,14 @@
       <section class="flex-1 lg:max-w-[50%] flex flex-col min-h-[400px]">
         <p
           id="question-counter"
-          class="text-[14px] md:text-[20px] italic text-blue-300 mb-3 md:mb-7"
+          class="text-h5-mobile md:text-h6 italic text-blue-300 mb-3 md:mb-7"
         >
           Question 6 of 10
         </p>
 
         <h2
           id="question-title"
-          class="text-[20px] md:text-[36px] font-medium leading-tight mb-10"
+          class="text-h3-mobile md:text-h3-tablet lg:text-h3 mb-10"
         >
           Which of these color contrast ratios defines the minimum WCAG 2.1
           Level AA requirement for normal text?
@@ -236,7 +229,7 @@
 
         <button
           id="submit-btn"
-          class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-[18px] md:text-[28px] font-medium py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg"
+          class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-h4-mobile md:text-h4-tablet lg:text-h4 py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg"
         >
           Submit Answer
         </button>
