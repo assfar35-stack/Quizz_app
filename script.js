@@ -111,15 +111,24 @@ submitBtn.addEventListener('click', () => {
 
   optionButtons.forEach(btn => {
     const btnText = btn.querySelector('.option-text').textContent;
+    
+    // THE FIX: Strip away the purple styling before applying green/red
+    btn.classList.remove('border-purple-600');
+    btn.querySelector('.letter-box').classList.remove('bg-purple-600');
+
     if (btnText === currentQuestionData.answer) {
+      // Highlight correct answer in Green
       btn.classList.add('border-green-500');
+      btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
       btn.querySelector('.letter-box').classList.add('bg-green-500', 'text-white');
     } else if (btnText === selectedOptionText && !isCorrect) {
+      // Highlight wrong answer in Red
       btn.classList.add('border-red-500');
-      btn.querySelector('.letter-box').classList.remove('bg-purple-600');
+      btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
       btn.querySelector('.letter-box').classList.add('bg-red-500', 'text-white');
     }
   });
+  
   submitBtn.textContent = "Next Question";
 });
 
