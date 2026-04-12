@@ -10,6 +10,7 @@ const quizData = {
       ],
       answer: "Hyper Text Markup Language"
     }
+    
   ],
   "CSS": [
     {
