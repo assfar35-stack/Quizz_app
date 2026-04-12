@@ -139,7 +139,7 @@
       }
     </style>
   </head>
-  <body class="bg-blue-900 min-h-screen relative ">
+  <body class="bg-blue-900 min-h-screen relative">
     <img
       src="/assets/icons/bgleft.svg"
       alt=""
@@ -208,71 +208,54 @@
       class="max-w-[1160px] mx-auto w-full px-6 mt-8 md:mt-12 lg:mt-24 flex flex-col lg:flex-row justify-between gap-10 lg:gap-32 pb-20 text-white"
     >
       <section class="flex-1 lg:max-w-[50%] flex flex-col min-h-[400px]">
-        <p class="text-[14px] md:text-[20px] italic text-blue-300 mb-3 md:mb-7">
+        <p
+          id="question-counter"
+          class="text-[14px] md:text-[20px] italic text-blue-300 mb-3 md:mb-7"
+        >
           Question 6 of 10
         </p>
 
-        <h2 class="text-[20px] md:text-[36px] font-medium leading-tight mb-10">
+        <h2
+          id="question-title"
+          class="text-[20px] md:text-[36px] font-medium leading-tight mb-10"
+        >
           Which of these color contrast ratios defines the minimum WCAG 2.1
           Level AA requirement for normal text?
         </h2>
 
         <div class="mt-auto w-full h-4 bg-blue-850 rounded-full p-1">
-          <div class="h-full bg-purple-600 rounded-full w-[60%]"></div>
+          <div
+            id="progress-bar"
+            class="h-full bg-purple-600 rounded-full w-[60%]"
+          ></div>
         </div>
       </section>
 
       <section class="flex-1 w-full flex flex-col gap-3 md:gap-6">
-        <button
-          class="group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left cursor-pointer"
-        >
-          <div
-            class="w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-gray-500 font-medium text-[18px] md:text-[28px]"
-          >
-            A
-          </div>
-          <span class="text-[18px] md:text-[28px] font-medium">4.5 : 1</span>
-        </button>
+        <div id="options-container" class="flex flex-col gap-3 md:gap-6"></div>
 
         <button
-          class="group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left cursor-pointer"
-        >
-          <div
-            class="w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-gray-500 font-medium text-[18px] md:text-[28px]"
-          >
-            B
-          </div>
-          <span class="text-[18px] md:text-[28px] font-medium">3 : 1</span>
-        </button>
-
-        <button
-          class="group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left cursor-pointer"
-        >
-          <div
-            class="w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-gray-500 font-medium text-[18px] md:text-[28px]"
-          >
-            C
-          </div>
-          <span class="text-[18px] md:text-[28px] font-medium">2.5 : 1</span>
-        </button>
-
-        <button
-          class="group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left cursor-pointer"
-        >
-          <div
-            class="w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-gray-500 font-medium text-[18px] md:text-[28px]"
-          >
-            D
-          </div>
-          <span class="text-[18px] md:text-[28px] font-medium">5 : 1</span>
-        </button>
-
-        <button
-          class="w-full bg-purple-400 hover:bg-purple-600/50 transition-colors text-white text-[18px] md:text-[28px] font-medium py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg cursor-pointer"
+          id="submit-btn"
+          class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-[18px] md:text-[28px] font-medium py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg"
         >
           Submit Answer
         </button>
+        <div
+          id="error-message"
+          class="text-red-500 flex items-center justify-center gap-2 mt-3 hidden"
+        >
+          <img
+            src="./assets/icons/icon-error.svg"
+            alt="Error"
+            class="w-6 h-6 hidden"
+          />
+          <span class="text-[18px] md:text-[24px]"
+            >Please select an answer</span
+          >
+        </div>
       </section>
     </main>
+    <script src="./data.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
