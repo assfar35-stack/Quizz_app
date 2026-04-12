@@ -13,6 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
       @theme {
+        /* Font */
+        --font-rubik: "Rubik", sans-serif;
+
         /* Base Colors */
         --color-white: #ffffff;
         --color-black: #000000;
@@ -128,7 +131,7 @@
       }
     </style>
   </head>
-  <body class="bg-blue-900 min-h-screen relative">
+  <body class="bg-blue-900 min-h-screen relative font-rubik text-white">
     <img
       src="/assets/icons/bgleft.svg"
       alt=""
@@ -145,7 +148,9 @@
     >
       <div class="flex items-center gap-2">
         <div class=""><img src="/assets/icons/iconaccses.svg" alt="" /></div>
-        <span class="text-preset-4">Accessibility</span>
+        <span class="text-h4-mobile md:text-h3-tablet lg:text-h4"
+          >Accessibility</span
+        >
       </div>
       <div class="flex items-center gap-4">
         <svg
@@ -199,14 +204,14 @@
       <section class="flex-1 lg:max-w-[50%] flex flex-col min-h-[400px]">
         <p
           id="question-counter"
-          class="text-[14px] md:text-[20px] italic text-blue-300 mb-3 md:mb-7"
+          class="text-h5-mobile md:text-h6 italic text-blue-300 mb-3 md:mb-7"
         >
           Question 6 of 10
         </p>
 
         <h2
           id="question-title"
-          class="text-[20px] md:text-[36px] font-medium leading-tight mb-10"
+          class="text-h3-mobile md:text-h3-tablet lg:text-h3 mb-10"
         >
           Which of these color contrast ratios defines the minimum WCAG 2.1
           Level AA requirement for normal text?
@@ -225,7 +230,7 @@
 
         <button
           id="submit-btn"
-          class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-[18px] md:text-[28px] font-medium py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg"
+          class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-h4-mobile md:text-h4-tablet lg:text-h4 py-3 md:py-6 rounded-xl md:rounded-3xl mt-3 md:mt-2 shadow-lg"
         >
           Submit Answer
         </button>
@@ -238,7 +243,7 @@
             alt="Error"
             class="w-6 h-6 hidden"
           />
-          <span class="text-[18px] md:text-[24px]"
+          <span class="text-h4-mobile md:text-h6 lg:text-h5"
             >Please select an answer</span
           >
         </div>
