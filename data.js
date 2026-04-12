@@ -9,11 +9,6 @@ const quizData = {
         "Hyper Tool Multi Language"
       ],
       answer: "Hyper Text Markup Language"
-    },
-    {
-      question: "What is the correct HTML element for inserting a line break?",
-      options: ["<break>", "<br>", "<lb>", "<b>"],
-      answer: "<br>"
     }
   ],
   "CSS": [
@@ -26,6 +21,13 @@ const quizData = {
         "Creative Style Sheets"
       ],
       answer: "Cascading Style Sheets"
+    }
+  ],
+  "Javascript": [
+    {
+      question: "Which symbol is used for single-line comments in JavaScript?",
+      options: ["//", "", "/* */", "#"],
+      answer: "//"
     }
   ],
   "Accessibility": [
