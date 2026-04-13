@@ -5,6 +5,17 @@ const urlParams = new URLSearchParams(window.location.search);
 const currentSubject = urlParams.get('subject');
 console.log("2. The subject picked is:", currentSubject);
 
+// Set the subject icon and title in header
+const subjectIconMap = {
+  'HTML': './assets/icons/iconhtml.svg',
+  'CSS': './assets/icons/iconcss.svg',
+  'JavaScript': './assets/icons/iconjs.svg',
+  'Accessibility': './assets/icons/iconaccses.svg'
+};
+
+document.getElementById('subject-title').textContent = currentSubject;
+document.getElementById('subject-icon').src = subjectIconMap[currentSubject] || './assets/icons/iconhtml.svg';
+
 // 2. Fetch the data
 const questions = quizData[currentSubject];
 console.log("3. The questions loaded are:", questions);
