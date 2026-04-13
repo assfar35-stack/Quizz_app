@@ -24,6 +24,19 @@ const errorMessage = document.getElementById('error-message');
 const progressBar = document.getElementById('progress-bar');
 
 const alphabet = ['A', 'B', 'C', 'D'];
+
+// Helper function to escape HTML special characters
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 // The exact SVG code for the Correct and Incorrect icons
 const iconCorrect = `<svg class="w-8 h-8 md:w-10 md:h-10 ml-auto" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 5C11.7157 5 5 11.7157 5 20C5 28.2843 11.7157 35 20 35C28.2843 35 35 28.2843 35 20C35 11.7157 28.2843 5 20 5ZM20 32.5C13.1064 32.5 7.5 26.8936 7.5 20C7.5 13.1064 13.1064 7.5 20 7.5C26.8936 7.5 32.5 13.1064 32.5 20C32.5 26.8936 26.8936 32.5 20 32.5ZM28.6187 14.2813C28.1305 13.793 27.3389 13.793 26.8507 14.2813L17.5 23.632L13.1493 19.2813C12.6611 18.793 11.8695 18.793 11.3813 19.2813C10.893 19.7695 10.893 20.5611 11.3813 21.0493L16.616 26.284C17.1043 26.7723 17.8959 26.7723 18.384 26.284L28.6187 16.0493C29.1069 15.5611 29.1069 14.7695 28.6187 14.2813Z" fill="#2fd887"/></svg>`;
 
@@ -52,12 +65,13 @@ function renderQuestion() {
   console.log("6. Attempting to build the buttons...");
 
   currentQuestionData.options.forEach((option, index) => {
+    const escapedOption = escapeHtml(option);
     const buttonHTML = `
       <button class="option-btn group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left outline-none border-2 border-transparent">
         <div class="letter-box w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-blue-500 font-medium text-[18px] md:text-[28px] transition-colors">
           ${alphabet[index]}
         </div>
-        <span class="option-text text-[18px] md:text-[28px] font-medium">${option}</span>
+        <span class="option-text text-[18px] md:text-[28px] font-medium text-white flex-1">${escapedOption}</span>
         
         <div class="icon-container ml-auto"></div>
       </button>
