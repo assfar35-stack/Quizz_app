@@ -61,6 +61,7 @@ function renderQuestion() {
   isAnswerSubmitted = false;
   submitBtn.textContent = "Submit Answer";
   errorMessage.classList.add('hidden');
+  document.getElementById('error-icon-container').innerHTML = '';
 
   console.log("6. Attempting to build the buttons...");
 
@@ -120,7 +121,8 @@ submitBtn.addEventListener('click', () => {
   }
 
   if (!selectedOptionText) {
-    errorMessage.classList.remove('hidden'); 
+    errorMessage.classList.remove('hidden');
+    document.getElementById('error-icon-container').innerHTML = iconIncorrect;
     return;
   }
 
@@ -135,12 +137,12 @@ submitBtn.addEventListener('click', () => {
   btn.querySelector('.letter-box').classList.remove('bg-purple-600');
 
   if (btnText === currentQuestionData.answer) {
-    btn.classList.add('border-green-500');
+    btn.style.border = '3px solid #22c55e';
     btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
     btn.querySelector('.letter-box').classList.add('bg-green-500', 'text-white');
     btn.querySelector('.icon-container').innerHTML = iconCorrect;
   } else if (btnText === selectedOptionText && !isCorrect) {
-    btn.classList.add('border-red-500');
+    btn.style.border = '3px solid #ef4444';
     btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
     btn.querySelector('.letter-box').classList.add('bg-red-500', 'text-white');
     btn.querySelector('.icon-container').innerHTML = iconIncorrect;
