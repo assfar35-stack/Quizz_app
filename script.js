@@ -1,190 +1,182 @@
-console.log("1. Script successfully started!");
-
-// 1. URL Parameter Setup
+/** * 1. CONFIGURATION & STATE 
+ */
 const urlParams = new URLSearchParams(window.location.search);
-const currentSubject = urlParams.get('subject');
-console.log("2. The subject picked is:", currentSubject);
+const currentSubject = urlParams.get('subject') || 'HTML';
+// Assumes quizData is loaded from your data.js file
+const questions = quizData[currentSubject] || [];
 
-// Set the subject icon and title in header
-const subjectIconMap = {
+const subjectIcons = {
   'HTML': './assets/icons/iconhtml.svg',
   'CSS': './assets/icons/iconcss.svg',
   'JavaScript': './assets/icons/iconjs.svg',
   'Accessibility': './assets/icons/iconaccses.svg'
 };
 
-document.getElementById('subject-title').textContent = currentSubject;
-document.getElementById('subject-icon').src = subjectIconMap[currentSubject] || './assets/icons/iconhtml.svg';
+// SVG or Image for the error icon (as seen in your screenshot)
+const iconIncorrect = `<img src="assets/icons/wrong.png" alt="incorrect" class="w-8 h-8 md:w-10 md:h-10">`;
+const iconCorrect = `<img src="assets/icons/correct.png" alt="correct" class="w-8 h-8 md:w-10 md:h-10 ml-auto">`;
 
-// 2. Fetch the data
-const questions = quizData[currentSubject];
-console.log("3. The questions loaded are:", questions);
-
-// 3. Application State
-let currentQuestionIndex = 0;
+let currentIdx = 0;
 let score = 0;
-let selectedOptionText = null;
-let isAnswerSubmitted = false;
+let selectedBtn = null;
+let isAnswered = false;
 
-// 4. DOM Elements
+// DOM Elements
 const questionTitle = document.getElementById('question-title');
 const questionCounter = document.getElementById('question-counter');
 const optionsContainer = document.getElementById('options-container');
 const submitBtn = document.getElementById('submit-btn');
-const errorMessage = document.getElementById('error-message');
 const progressBar = document.getElementById('progress-bar');
+const errorMsg = document.getElementById('error-message');
+const errorIconContainer = document.getElementById('error-icon-container');
 
-const alphabet = ['A', 'B', 'C', 'D'];
+// Initial Setup: Set Header Icon and Title
+document.getElementById('subject-title').textContent = currentSubject;
+document.getElementById('subject-icon').src = subjectIcons[currentSubject] || subjectIcons['HTML'];
 
-// Helper function to escape HTML special characters
-function escapeHtml(text) {
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, m => map[m]);
-}
+/** * 2. CORE FUNCTIONS
+ */
 
-// The image icons for the Correct and Incorrect indicators
-const iconCorrect = `<img src="assets/icons/correct.png" alt="correct" class="w-8 h-8 md:w-10 md:h-10 ml-auto">`;
-
-const iconIncorrect = `<img src="assets/icons/wrong.png" alt="incorrect" class="w-8 h-8 md:w-10 md:h-10 ml-auto">`;
-
-console.log("4. Successfully grabbed all HTML elements!");
-
-// 5. The Render Function
+// Function to draw the question and buttons
 function renderQuestion() {
-  console.log("5. Attempting to render the question...");
+  const data = questions[currentIdx];
+  isAnswered = false;
+  selectedBtn = null;
   
-  const currentQuestionData = questions[currentQuestionIndex];
-
-  questionTitle.textContent = currentQuestionData.question;
-  questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
-
-  const progressPercentage = ((currentQuestionIndex) / questions.length) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-
-  optionsContainer.innerHTML = '';
-  selectedOptionText = null;
-  isAnswerSubmitted = false;
+  // Update Text & Progress Bar
+  questionTitle.textContent = data.question;
+  questionCounter.textContent = `Question ${currentIdx + 1} of ${questions.length}`;
+  
+  // Calculate Progress
+  const progressPercent = ((currentIdx + 1) / questions.length) * 100;
+  progressBar.style.width = `${progressPercent}%`;
+  
+  // Reset UI
   submitBtn.textContent = "Submit Answer";
-  errorMessage.classList.add('hidden');
-  document.getElementById('error-icon-container').innerHTML = '';
+  errorMsg.classList.add('hidden');
+  errorIconContainer.innerHTML = ''; 
+  optionsContainer.innerHTML = '';
 
-  console.log("6. Attempting to build the buttons...");
-
-  currentQuestionData.options.forEach((option, index) => {
-    const escapedOption = escapeHtml(option);
-    const buttonHTML = `
-      <button class="option-btn group w-full flex items-center gap-4 md:gap-8 bg-blue-850 p-3 md:p-5 rounded-xl md:rounded-3xl hover:ring-2 hover:ring-white/10 transition-all shadow-lg text-left outline-none border-2 border-transparent">
-        <div class="letter-box w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 text-blue-500 font-medium text-[18px] md:text-[28px] transition-colors">
-          ${alphabet[index]}
-        </div>
-        <span class="option-text text-[18px] md:text-[28px] font-medium text-white flex-1">${escapedOption}</span>
-        
-        <div class="icon-container ml-auto"></div>
-      </button>
+  // Create Option Buttons
+  data.options.forEach((option, i) => {
+    const char = String.fromCharCode(65 + i); // A, B, C, D
+    const btn = document.createElement('button');
+    
+    // Classes match the design in your screenshot
+    btn.className = "option-btn group w-full flex items-center gap-4 bg-[#3b4d66] p-4 md:p-5 rounded-2xl md:rounded-[24px] border-[3px] border-transparent transition-all shadow-sm text-left outline-none";
+    
+    btn.innerHTML = `
+      <div class="letter-box w-10 h-10 md:w-14 md:h-14 rounded-lg bg-[#f4f6fa] flex items-center justify-center shrink-0 text-[#626c7f] font-medium text-[20px] md:text-[28px] transition-colors">
+        ${char}
+      </div>
+      <span class="option-text text-[18px] md:text-[28px] font-medium text-white flex-1">${option}</span>
+      <div class="icon-container ml-auto"></div>
     `;
-    optionsContainer.insertAdjacentHTML('beforeend', buttonHTML);
-  });
-
-  console.log("7. Buttons built successfully!");
-
-  const optionButtons = document.querySelectorAll('.option-btn');
-  optionButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      handleOptionClick(this, optionButtons);
-    });
+    
+    btn.onclick = () => handleSelect(btn);
+    optionsContainer.appendChild(btn);
   });
 }
 
-function handleOptionClick(clickedBtn, allButtons) {
-  if (isAnswerSubmitted) return; 
-  errorMessage.classList.add('hidden');
-  selectedOptionText = clickedBtn.querySelector('.option-text').textContent;
+// Function to handle clicking an option
+function handleSelect(btn) {
+  if (isAnswered) return; // Don't allow changes after submitting
+  
+  errorMsg.classList.add('hidden');
+  errorIconContainer.innerHTML = '';
 
-  allButtons.forEach(btn => {
-    btn.classList.remove('border-purple-600');
-    btn.querySelector('.letter-box').classList.remove('bg-purple-600', 'text-white');
-    btn.querySelector('.letter-box').classList.add('bg-gray-50', 'text-blue-500');
+  // Reset all buttons to default (unselected) state
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.replace('border-[#a729f5]', 'border-transparent');
+    const box = b.querySelector('.letter-box');
+    box.classList.remove('bg-[#a729f5]', 'text-white');
+    box.classList.add('bg-[#f4f6fa]', 'text-[#626c7f]');
   });
 
-  clickedBtn.classList.add('border-purple-600');
-  clickedBtn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
-  clickedBtn.querySelector('.letter-box').classList.add('bg-purple-600', 'text-white');
+  // Highlight the chosen button with Purple
+  selectedBtn = btn;
+  btn.classList.replace('border-transparent', 'border-[#a729f5]');
+  
+  const letterBox = btn.querySelector('.letter-box');
+  letterBox.classList.remove('bg-[#f4f6fa]', 'text-[#626c7f]');
+  letterBox.classList.add('bg-[#a729f5]', 'text-white');
 }
 
-submitBtn.addEventListener('click', () => {
-  const currentQuestionData = questions[currentQuestionIndex];
-  const optionButtons = document.querySelectorAll('.option-btn');
-
-  if (isAnswerSubmitted) {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      renderQuestion(); 
-    } else {
-      finishQuiz(); 
-    }
+// Function to check if the answer is right
+function validateAnswer() {
+  if (!selectedBtn) {
+    errorMsg.classList.remove('hidden');
+    errorIconContainer.innerHTML = iconIncorrect; 
     return;
   }
 
-  if (!selectedOptionText) {
-    errorMessage.classList.remove('hidden');
-    document.getElementById('error-icon-container').innerHTML = iconIncorrect;
-    return;
-  }
+  isAnswered = true;
+  const data = questions[currentIdx];
+  const chosenText = selectedBtn.querySelector('.option-text').textContent;
+  const isCorrect = chosenText === data.answer;
 
-  isAnswerSubmitted = true;
-  const isCorrect = selectedOptionText === currentQuestionData.answer;
   if (isCorrect) score++;
 
-  optionButtons.forEach(btn => {
-  let btnText = btn.querySelector('.option-text').textContent;
+  // Show correct/incorrect colors on buttons
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    const btnText = btn.querySelector('.option-text').textContent;
+    const letterBox = btn.querySelector('.letter-box');
+    
+    if (btnText === data.answer) {
+      // Show correct answer in green
+      applyStatus(btn, letterBox, '#22c55e', 'assets/icons/correct.png');
+    } else if (btn === selectedBtn && !isCorrect) {
+      // Show user's wrong choice in red
+      applyStatus(btn, letterBox, '#ef4444', 'assets/icons/wrong.png');
+    }
+  });
 
-  btn.classList.remove('border-purple-600');
-  btn.querySelector('.letter-box').classList.remove('bg-purple-600');
+  submitBtn.textContent = (currentIdx < questions.length - 1) ? "Next Question" : "Finish Quiz";
+}
 
-  if (btnText === currentQuestionData.answer) {
-    btn.style.border = '3px solid #22c55e';
-    btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
-    btn.querySelector('.letter-box').classList.add('bg-green-500', 'text-white');
-    btn.querySelector('.icon-container').innerHTML = iconCorrect;
-  } else if (btnText === selectedOptionText && !isCorrect) {
-    btn.style.border = '3px solid #ef4444';
-    btn.querySelector('.letter-box').classList.remove('bg-gray-50', 'text-blue-500');
-    btn.querySelector('.letter-box').classList.add('bg-red-500', 'text-white');
-    btn.querySelector('.icon-container').innerHTML = iconIncorrect;
+// Helper function to apply green/red colors
+function applyStatus(btn, box, colorHex, iconPath) {
+  btn.style.borderColor = colorHex;
+  box.style.backgroundColor = colorHex;
+  box.classList.add('text-white');
+  btn.querySelector('.icon-container').innerHTML = `<img src="${iconPath}" class="w-8 h-8">`;
+}
+
+/** * 3. EVENTS
+ */
+
+submitBtn.addEventListener('click', () => {
+  if (!isAnswered) {
+    validateAnswer();
+  } else {
+    currentIdx++;
+    currentIdx < questions.length ? renderQuestion() : finishQuiz();
   }
-});
-  
-  submitBtn.textContent = "Next Question";
 });
 
 function finishQuiz() {
   document.querySelector('main').innerHTML = `
-    <section class="flex-1 lg:max-w-[50%] flex flex-col justify-start md:justify-center">
-      <h2 class="text-[40px] md:text-[64px] font-light leading-tight">Quiz completed</h2>
-      <h3 class="text-[40px] md:text-[64px] font-medium leading-tight">You scored...</h3>
-    </section>
-    <section class="flex-1 w-full max-w-[564px] flex flex-col mt-10 lg:mt-0">
-      <div class="bg-blue-850 w-full p-8 md:p-12 rounded-[24px] flex flex-col items-center shadow-lg">
-        <div class="flex items-center gap-4 mb-4 md:mb-10">
-           <span class="text-[18px] md:text-[28px] font-medium">${currentSubject}</span>
-        </div>
-        <span class="text-[88px] md:text-[144px] font-medium leading-none">${score}</span>
-        <p class="text-[18px] md:text-[24px] text-blue-300 mt-4 md:mt-6">out of ${questions.length}</p>
+    <div class="flex flex-col lg:flex-row gap-12 w-full max-w-[1160px] mx-auto items-start">
+      <div class="flex-1">
+        <h2 class="text-white text-[40px] md:text-[64px] font-light leading-tight">Quiz completed</h2>
+        <h3 class="text-white text-[40px] md:text-[64px] font-medium leading-tight">You scored...</h3>
       </div>
-      <button id="play-again-btn" class="w-full bg-purple-600 hover:bg-purple-600/50 transition-colors text-white text-[18px] md:text-[28px] font-medium py-3 md:py-6 rounded-xl md:rounded-3xl mt-6 shadow-lg">
-        Play Again
-      </button>
-    </section>
+      <div class="flex-1 w-full max-w-[564px]">
+        <div class="bg-[#3b4d66] p-8 md:p-12 rounded-[24px] flex flex-col items-center shadow-lg">
+          <div class="flex items-center gap-4 mb-10">
+              <img src="${subjectIcons[currentSubject]}" class="w-10 h-10">
+              <span class="text-white text-[18px] md:text-[28px] font-medium">${currentSubject}</span>
+          </div>
+          <span class="text-white text-[88px] md:text-[144px] font-medium leading-none">${score}</span>
+          <p class="text-[#abc1e1] text-[18px] md:text-[24px] mt-4">out of ${questions.length}</p>
+        </div>
+        <button onclick="location.href='index.html'" class="w-full bg-[#a729f5] hover:opacity-70 transition-all text-white text-[18px] md:text-[28px] font-medium py-4 md:py-8 rounded-2xl md:rounded-[24px] mt-8 shadow-lg">
+          Play Again
+        </button>
+      </div>
+    </div>
   `;
-  document.getElementById('play-again-btn').addEventListener('click', () => {
-    window.location.href = 'index.html'; 
-  });
 }
 
+// Start the quiz
 renderQuestion();
