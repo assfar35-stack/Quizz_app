@@ -152,7 +152,7 @@ submitBtn.addEventListener('click', () => {
     currentIdx < questions.length ? renderQuestion() : finishQuiz();
   }
 });
-
+/* finish event */
 function finishQuiz() {
   const mainEl = document.querySelector('main');
   mainEl.innerHTML = `
