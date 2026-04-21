@@ -49,8 +49,6 @@ function renderQuestion() {
   }
 
   const data = questions[currentIdx];
-  console.log("3. Rendering Question:", data.question);
-  console.log("4. Options found:", data.options); // THIS SHOULD NOT BE EMPTY
 
   isAnswered = false;
   selectedBtn = null;
